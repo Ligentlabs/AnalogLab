@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server';
 
 import { pino } from '@/libs/logger';
 import { createContext } from '@/server/context';
-import { lambdaRouter } from '@/server/routers';
+import { lambdaRouter } from '@/server/routers/lambda';
 
 const handler = (req: NextRequest) =>
   fetchRequestHandler({

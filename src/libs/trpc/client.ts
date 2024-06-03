@@ -2,7 +2,8 @@ import { createTRPCClient, httpBatchLink } from '@trpc/client';
 import superjson from 'superjson';
 
 import { fetchErrorNotification } from '@/components/FetchErrorNotification';
-import type { EdgeRouter, LambdaRouter } from '@/server/routers';
+import type { EdgeRouter } from '@/server/routers/edge';
+import type { LambdaRouter } from '@/server/routers/lambda';
 import { withBasePath } from '@/utils/basePath';
 
 export const edgeClient = createTRPCClient<EdgeRouter>({
