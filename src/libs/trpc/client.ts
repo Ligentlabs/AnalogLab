@@ -3,13 +3,17 @@ import superjson from 'superjson';
 
 import { fetchErrorNotification } from '@/components/FetchErrorNotification';
 import type { EdgeRouter, LambdaRouter } from '@/server/routers';
-import { createHeaderWithAuth } from '@/services/_auth';
 import { withBasePath } from '@/utils/basePath';
 
 export const edgeClient = createTRPCClient<EdgeRouter>({
   links: [
     httpBatchLink({
-      headers: async () => createHeaderWithAuth(),
+      headers: async () => {
+        // dynamic import to avoid circular dependency
+        const { createHeaderWithAuth } = await import('@/services/_auth');
+
+        return createHeaderWithAuth();
+      },
       transformer: superjson,
       url: withBasePath('/trpc/edge'),
     }),
