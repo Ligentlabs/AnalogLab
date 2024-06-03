@@ -26,8 +26,8 @@ export default defineConfig({
     deps: {
       inline: ['vitest-canvas-mock'],
     },
-    // threads: false,
     environment: 'happy-dom',
+    exclude: ['**/node_modules/**', '**/dist/**', '**/build/**', 'src/database/server/**/**'],
     globals: true,
     setupFiles: './tests/setup.ts',
   },
