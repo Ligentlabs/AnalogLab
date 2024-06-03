@@ -2,7 +2,7 @@
 import { eq, inArray } from 'drizzle-orm';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { serverDB } from '@/database/server';
+import { getTestDBInstance } from '@/database/server/core/dbForTest';
 import {
   agents,
   agentsToSessions,
@@ -18,6 +18,14 @@ import { ImporterEntryData } from '@/types/importer';
 
 import { DataImporter } from '../index';
 import mockImportData from './fixtures/messages.json';
+
+let serverDB = await getTestDBInstance();
+
+vi.mock('@/database/server/core/db', async () => ({
+  get serverDB() {
+    return serverDB;
+  },
+}));
 
 const userId = 'test-user-id';
 let importer: DataImporter;
